@@ -41,7 +41,8 @@ class ReadLine implements Middleware<int> {
     return line;
   }
 
-  Future close() async {}
+  Future close() async {
+  }
 }
 
 class PrependLineNumber implements Middleware<String> {

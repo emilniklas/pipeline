@@ -73,7 +73,7 @@ Anyway, we can either create a `Pipeline` object with the char stream, or we can
 The pipeline itself is a stream, so we can return the pipeline and allow other parts of the program to listen to it.
 
 ```dart
-Pipeline<String> everyLineNumbered(File file) {
+Future<Pipeline<String>> everyLineNumbered(File file) async {
   
   Stream<List<int>> stream = new Stream.fromIterable(await file.readAsBytes());
   
@@ -91,7 +91,7 @@ Pipeline<String> everyLineNumbered(File file) {
 In this case, it might be nice to refactor into the `Pipeline.fromStream` constructor, like so:
 
 ```dart
-Pipeline<String> everyLineNumbered(File file) => new Pipeline.fromStream(
+Pipeline<String> everyLineNumbered(File file) async => new Pipeline.fromStream(
   new Stream.fromIterable(await file.readAsBytes()),
   middleware: [
     new ReadLine(),
