@@ -75,7 +75,7 @@ The pipeline itself is a stream, so we can return the pipeline and allow other p
 ```dart
 Future<Pipeline<String>> everyLineNumbered(File file) async {
   
-  Stream<List<int>> stream = new Stream.fromIterable(await file.readAsBytes());
+  Stream<int> stream = new Stream.fromIterable(await file.readAsBytes());
   
   Pipeline<String> pipeline = new Pipeline(middleware: [
     new ReadLine(),
