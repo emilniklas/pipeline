@@ -91,7 +91,7 @@ Future<Pipeline<String>> everyLineNumbered(File file) async {
 In this case, it might be nice to refactor into the `Pipeline.fromStream` constructor, like so:
 
 ```dart
-Pipeline<String> everyLineNumbered(File file) async => new Pipeline.fromStream(
+Future<Pipeline<String>> everyLineNumbered(File file) async => new Pipeline.fromStream(
   new Stream.fromIterable(await file.readAsBytes()),
   middleware: [
     new ReadLine(),
