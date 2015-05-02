@@ -1,5 +1,5 @@
 name: pipeline
 author: Emil Persson <emil.n.persson@gmail.com>
 description: A simple way to queue and apply transformers to streams
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/emilniklas/pipeline

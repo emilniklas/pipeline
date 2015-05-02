@@ -42,9 +42,9 @@ class ReadLine implements Middleware<String> {
 
   String buffer;
 
-  Future<String> pipe(List<int> units) async {
+  Future<String> pipe(int unit) async {
 
-    String character = UTF8.decode(units);
+    String character = new String.fromCharCode(unit);
 
     buffer += character;
 
@@ -64,18 +64,19 @@ class ReadLine implements Middleware<String> {
 
 ### Pipeline
 
-To actually use these middleware, we can either create a `Pipeline` object with the file stream, or we can pipe the 
-stream to a pipeline object. The pipeline itself is a stream, so we can return the pipeline and allow other parts of 
-the program to listen to it.
+To actually use these middleware, we need a stream of char codes. In this case, we fake it a bit to prove a point.
+
+Anyway, we can either create a `Pipeline` object with the char stream, or we can pipe the stream to a pipeline object. 
+The pipeline itself is a stream, so we can return the pipeline and allow other parts of the program to listen to it.
 
 ```dart
 Pipeline<String> everyLineNumbered(File file) {
   
-  Stream<List<int>> stream = file.openRead();
+  Stream<List<int>> stream = new Stream.fromIterable(await file.readAsBytes());
   
   Pipeline<String> pipeline = new Pipeline(middleware: [
     new ReadLine(),
-    new PrependLine(),
+    new PrependLineNumber(),
   ]);
   
   stream.pipe(pipeline);
@@ -88,7 +89,7 @@ In this case, it might be nice to refactor into the `Pipeline.fromStream` constr
 
 ```dart
 Pipeline<String> everyLineNumbered(File file) => new Pipeline.fromStream(
-  file.openRead(),
+  new Stream.fromIterable(await file.readAsBytes()),
   middleware: [
     new ReadLine(),
     new PrependLine(),
