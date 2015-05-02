@@ -12,15 +12,15 @@ class PrependLineNumber implements Middleware<String> {
   int _number = 0;
 
   Future<String> pipe(String line) async {
-  
+
     _number++;
-  
+
     return '$_number: $line';
   }
 
   Future close() async {
     // Tear down method
-    
+
     // Silly example
     _number = -1;
   }
@@ -40,21 +40,24 @@ This is a middleware that accepts data from a file stream, but only passes forwa
 ```dart
 class ReadLine implements Middleware<int> {
 
-  String buffer;
+  String buffer = '';
 
   Future<String> pipe(int unit) async {
 
     String character = new String.fromCharCode(unit);
 
-    buffer += character;
-
     // If the character isn't a newline, remove this item from the pipeline
-    if (character != '\n') return null;
-    
+    if (character != '\n') {
+
+      buffer += character;
+
+      return null;
+    }
+
     String line = buffer;
-    
+
     buffer = '';
-    
+
     return line;
   }
 
