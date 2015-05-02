@@ -38,7 +38,7 @@ middleware.
 This is a middleware that accepts data from a file stream, but only passes forward every line as it is processed.
 
 ```dart
-class ReadLine implements Middleware<String> {
+class ReadLine implements Middleware<int> {
 
   String buffer;
 

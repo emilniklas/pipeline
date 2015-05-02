@@ -18,7 +18,7 @@ Future<Pipeline<String>> everyLineNumbered(File file) async => new Pipeline.from
     ]
 );
 
-class ReadLine implements Middleware<String> {
+class ReadLine implements Middleware<int> {
 
   String buffer = '';
 
